@@ -8,13 +8,14 @@ http://api.zenmoney.ru/consumer.html
 and use your username and password then.
 '''
 import requests
+from zenmoney import API_URL
 
 
 class OAuth2(object):
 
-    url_auth = 'https://api.zenmoney.ru/oauth2/authorize/'
-    url_token = 'https://api.zenmoney.ru/oauth2/token/'
-    url_redirect = 'notscheme://localhost/'
+    uri_auth = API_URL + '/oauth2/authorize/'
+    uri_token = API_URL + '/oauth2/token/'
+    uri_redirect = 'notscheme://localhost/'
 
     def __init__(self, consumer_key: str, consumer_secret: str,
                  username: str, password: str):
@@ -40,13 +41,13 @@ class OAuth2(object):
 
         code = self._get_code()
         response = self.s.post(
-            self.url_token,
+            self.uri_token,
             data={
                 'grant_type': 'authorization_code',
                 'client_id': self.consumer_key,
                 'client_secret': self.consumer_secret,
                 'code': code,
-                'redirect_uri': self.url_redirect,
+                'redirect_uri': self.uri_redirect,
             }
         )
 
@@ -58,16 +59,16 @@ class OAuth2(object):
         Get auth cookie, authorize user and then get the code for token
         '''
         self.s.get(
-            self.url_auth,
+            self.uri_auth,
             params={
                 'response_type': 'code',
                 'client_id': self.consumer_key,
-                'redirect_uri': self.url_redirect,
+                'redirect_uri': self.uri_redirect,
             }
         )
         response = self.s.post(
-            self.url_auth,
-            data={
+            self.uri_auth,
+            json={
                 'username': self.username,
                 'password': self.password,
                 'auth_type_password': 'Sign in',
