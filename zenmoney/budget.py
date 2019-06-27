@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 # `date` used in Transaction init as well
-from zenmoney import date as datetime_date
-from zenmoney import ZenObject, UUID, timestamp
+from . import date as datetime_date
+from . import ZenObject, UUID, timestamp
 
 
 class Budget(ZenObject):
@@ -12,26 +12,24 @@ class Budget(ZenObject):
     '''
     def __init__(self,
                  *,
-                 id:              UUID,
                  changed:         int = timestamp(),
                  user:            int,  # User.id
                  tag:             UUID,  # Tag.id
                  date:            datetime_date,  # yyyy-MM-dd
                  income:          float,  # >= 0
-                 incomeAccount:   str,  # -> Account.id
+                 incomeLock:   str,  # -> Account.id
                  outcome:         float,  # >= 0
-                 outcomeAccount:  str,  # -> Account.id
+                 outcomeLock:  str,  # -> Account.id
                  **kwargs,
                  ):
-        self.id = id
         self.changed = changed
         self.user = user
         self.tag = tag
         self.date = date
         self.income = income
-        self.incomeAccount = incomeAccount
+        self.incomeLock = incomeLock
         self.outcome = outcome
-        self.outcomeAccount = outcomeAccount
+        self.outcomeLock = outcomeLock
         for k, v in kwargs.items():
             setattr(self, k, v)
 

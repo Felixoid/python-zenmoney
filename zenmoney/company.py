@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from zenmoney import ZenObject, timestamp
+from . import ZenObject, timestamp
 
 
 class Company(ZenObject):
@@ -28,4 +28,4 @@ class Company(ZenObject):
             setattr(self, k, v)
 
     def __str__(self):
-        return self.login
+        return self.title

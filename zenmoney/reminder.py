@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from zenmoney import ZenObject, UUID, date, timestamp
+from . import ZenObject, UUID, date, timestamp
 
 
 class Reminder(ZenObject):

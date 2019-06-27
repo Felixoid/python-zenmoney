@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import requests
-from zenmoney import API_URL, timestamp
+from . import API_URL, Diff, Transaction
 
 
 class Request(object):
@@ -14,15 +14,21 @@ class Request(object):
         self.s.headers['Authorization'] = 'Bearer {}'.format(token)
         self.s.headers['Content-Type'] = 'application/json'
 
-    def diff(self, data: dict, server_timestamp: int = None) -> dict:
-        if 'serverTimestamp' not in data:
-            data['serverTimestamp'] = server_timestamp
-        if 'currentClientTimestamp' not in data:
-            data['currentClientTimestamp'] = timestamp()
+    def diff(self, diff: Diff, debug=False) -> Diff:
+        '''
+        Accept the Diff object and returns Diff object
+        '''
+        response = self.s.post(self.uri_diff, json=Diff._to_dict(diff))
+        if debug:
+            self._plain_diff = response.json()
 
-        response = self.s.post(self.uri_diff, json=data)
-        return response.json()
+        return Diff(**response.json())
 
-    def suggest(self, transactions: list) -> list:
-        response = self.s.post(self.uri_suggest, json=transactions)
+    def suggest(self, transaction) -> Transaction:
+        '''
+        Accept one or list of Transactions,
+        returns the same data with suggestions
+        '''
+        response = self.s.post(self.uri_suggest,
+                               json={'transaction': transaction})
         return response.json()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from zenmoney import timestamp, ZenObject
+from . import timestamp, ZenObject
 
 
 class Instrument(ZenObject):
@@ -13,7 +13,7 @@ class Instrument(ZenObject):
                  id:          int,
                  changed:     int = timestamp(),
                  title:       str,
-                 shortTitle:  str,  # 3 letters code
+                 shortTitle:  str,    # 3 letters code
                  symbol:      str,
                  rate:        float,  # relative to RUB
                  **kwargs,

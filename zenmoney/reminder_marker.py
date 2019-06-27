@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 # `date` used in Transaction init as well
-from zenmoney import date as datetime_date
-from zenmoney import ZenObject, UUID, timestamp
+from . import date as datetime_date
+from . import ZenObject, UUID, timestamp
 
 
 class ReminderMarker(ZenObject):

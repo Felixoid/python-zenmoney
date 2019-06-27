@@ -8,7 +8,7 @@ http://api.zenmoney.ru/consumer.html
 and use your username and password then.
 '''
 import requests
-from zenmoney import API_URL
+from . import API_URL
 
 
 class OAuth2(object):

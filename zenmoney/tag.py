@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from zenmoney import ZenObject, UUID, timestamp
+from . import ZenObject, UUID, timestamp
 
 
 class Tag(ZenObject):

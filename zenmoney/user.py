@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from zenmoney import ZenObject, timestamp
+from . import ZenObject, timestamp
 
 
 class User(ZenObject):
