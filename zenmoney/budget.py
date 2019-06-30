@@ -12,14 +12,14 @@ class Budget(ZenObject):
     '''
     def __init__(self,
                  *,
-                 changed:         int = timestamp(),
-                 user:            int,  # User.id
-                 tag:             UUID,  # Tag.id
-                 date:            datetime_date,  # yyyy-MM-dd
-                 income:          float,  # >= 0
-                 incomeLock:   str,  # -> Account.id
-                 outcome:         float,  # >= 0
-                 outcomeLock:  str,  # -> Account.id
+                 changed:      int = timestamp(),
+                 user:         int,  # User.id
+                 tag:          UUID,  # Tag.id
+                 date:         datetime_date,  # yyyy-MM-dd
+                 income:       float,
+                 incomeLock:   bool,
+                 outcome:      float,
+                 outcomeLock:  bool,
                  **kwargs,
                  ):
         self.changed = changed
