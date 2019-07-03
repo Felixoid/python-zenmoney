@@ -25,7 +25,7 @@ class Budget(ZenObject):
         self.changed = changed
         self.user = user
         self.tag = tag
-        self.date = date
+        self.date = str(date)
         self.income = income
         self.incomeLock = incomeLock
         self.outcome = outcome

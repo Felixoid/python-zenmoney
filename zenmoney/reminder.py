@@ -44,8 +44,8 @@ class Reminder(ZenObject):
         self.interval = interval
         self.step = step
         self.points = points
-        self.startDate = startDate
-        self.endDate = endDate
+        self.startDate = str(startDate)
+        self.endDate = str(endDate)
         self.notify = notify
         for k, v in kwargs.items():
             setattr(self, k, v)

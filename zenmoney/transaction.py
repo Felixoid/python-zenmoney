@@ -51,6 +51,6 @@ class Transaction(ZenObject):
         self.outcomeInstrument = outcomeInstrument
         self.outcomeAccount = outcomeAccount
         self.outcome = outcome
-        self.date = date
+        self.date = str(date)
         for k, v in kwargs.items():
             setattr(self, k, v)
