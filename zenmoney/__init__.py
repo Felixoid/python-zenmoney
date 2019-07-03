@@ -18,7 +18,7 @@ def timestamp(d: datetime = None):
 
 
 from .exception import ZenMoneyException  # noqa:F401
-from .zenobject import ZenObject  # noqa:F401
+from .zenobject import ZenObject, ZenObjectsList  # noqa:F401
 
 from .account import Account  # noqa:F401
 from .budget import Budget  # noqa:F401

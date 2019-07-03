@@ -17,6 +17,7 @@ from . import (  # noqa:F401
 
     Deletion,
     ZenObject,
+    ZenObjectsList,
 )
 
 
@@ -66,12 +67,8 @@ class Diff(ZenObject):
 
     def __fill_attribute(self, class_name: str, data: list):
         attr_name = class_name[0].lower() + class_name[1:]
-        cls = globals()[class_name]
-        attr_value = []
+        obj_class = globals()[class_name]
+        attr_value = ZenObjectsList()
         for obj in data:
-            try:
-                attr_value.append(cls(**obj))
-            except Exception as e:
-                print(obj, class_name)
-                print(e)
+            attr_value.append(obj_class(**obj))
         setattr(self, attr_name, attr_value)

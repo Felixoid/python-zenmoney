@@ -40,3 +40,47 @@ class ZenObject(object):
 
     def _to_dict(self, classkey=None):
         return to_dict(self, classkey)
+
+
+class ZenObjectsList(list):
+    def by_account(self, account):
+        yield from self._by_attr('incomeAccount', account)
+        yield from self._by_attr('outcomeAccount', account)
+
+    def by_id(self, id):
+        return self._by_attr_uniq('id', id)
+
+    def by_symbol(self, symbol):
+        return self._by_attr_uniq('symbol', symbol)
+
+    def by_tag(self, tag):
+        return self._by_attr('tag', tag)
+
+    def by_title(self, title):
+        return self._by_attr_uniq('title', title)
+
+    def by_shortTitle(self, shortTitle):
+        return self._by_attr_uniq('shortTitle', shortTitle)
+
+    def _by_attr_uniq(self, attr, value):
+        for o in self:
+            attr_value = getattr(o, attr)
+            if hasattr(attr_value, '__iter__'):
+                if value in attr_value or value == attr_value:
+                    return o
+            else:
+                if value == attr_value:
+                    return o
+
+    def _by_attr(self, attr, value):
+        for o in self:
+            attr_value = getattr(o, attr)
+            if hasattr(attr_value, '__iter__'):
+                if value in attr_value or value == attr_value:
+                    yield o
+            else:
+                if value == attr_value:
+                    yield o
+
+    def _to_dict(self, classkey=None):
+        return to_dict(self, classkey)
