@@ -5,6 +5,11 @@ from . import API_URL, Diff, Transaction, ZenMoneyException
 
 
 class Request(object):
+    '''
+    The main class to communicate with ZenMoney API
+    See the manual on
+    https://github.com/zenmoney/ZenPlugins/wiki/ZenMoney-API#principles
+    '''
 
     uri_diff = API_URL + '/v8/diff/'
     uri_suggest = API_URL + '/v8/suggest/'
@@ -18,7 +23,7 @@ class Request(object):
         '''
         Accept the Diff object and returns Diff object
         '''
-        response = self.__post(self.uri_diff, Diff._to_dict(diff))
+        response = self.__post(self.uri_diff, json=Diff._to_dict(diff))
         if debug:
             self._plain_diff = response.json()
 
@@ -26,18 +31,22 @@ class Request(object):
 
     def suggest(self, transaction: object) -> Transaction:
         '''
-        Accept one or list of Transactions,
+        Accept one or ZenObjectsList of Transactions
         returns the same data with suggestions
         '''
         response = self.__post(self.uri_suggest,
-                               {'transaction': transaction})
+                               json={'transaction': transaction._to_dict()})
         return response.json()
 
-    def __post(self, uri: str, data: object, **kwargs):
+    def __post(self, uri: str, **kwargs):
         '''
         Wrapper for request.post, which raises exception on non ok results
         '''
-        response = self.s.post(uri, json=data, **kwargs)
+        response = self.s.post(uri, **kwargs)
         if not response.ok:
-            raise ZenMoneyException('Diff request wasn\'t successful',
-                                    uri=uri, response=response)
+            raise ZenMoneyException(
+                'POST request to {} wasn\'t successful, code={}'
+                .format(uri, response.status_code),
+                uri=uri, response=response
+            )
+        return response
