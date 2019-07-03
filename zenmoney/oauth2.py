@@ -8,7 +8,7 @@ http://api.zenmoney.ru/consumer.html
 and use your username and password then.
 '''
 import requests
-from . import API_URL
+from . import API_URL, ZenMoneyException
 
 
 class OAuth2(object):
@@ -40,7 +40,7 @@ class OAuth2(object):
             return
 
         code = self._get_code()
-        response = self.s.post(
+        response = self.__post(
             self.uri_token,
             data={
                 'grant_type': 'authorization_code',
@@ -66,7 +66,7 @@ class OAuth2(object):
                 'redirect_uri': self.uri_redirect,
             }
         )
-        response = self.s.post(
+        response = self.__post(
             self.uri_auth,
             json={
                 'username': self.username,
@@ -78,7 +78,28 @@ class OAuth2(object):
 
         code_redirect = response._next.url
         code_query = requests.utils.urlparse(code_redirect).query
-        code = dict(x.split('=') for x in code_query.split('&'))['code']
-        return code
+        code_dict = dict(x.split('=') for x in code_query.split('&'))
+        if not code_dict.get('code', False):
+            raise ZenMoneyException(
+                'User authorization redirect url {} does not contain '
+                "'code' parameter".format(
+                    code_redirect
+                ),
+                response=response,
+            )
+        return code_dict.get('code')
 
     token = property(__get_token, __set_token)
+
+    def __post(self, uri: str, **kwargs):
+        '''
+        Wrapper for request.post, which raises exception on non ok results
+        '''
+        response = self.s.post(uri, **kwargs)
+        if not response.ok:
+            raise ZenMoneyException(
+                'POST request to {} wasn\'t successful, code={}'
+                .format(uri, response.status_code),
+                uri=uri, response=response
+            )
+        return response
