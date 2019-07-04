@@ -43,9 +43,11 @@ class ZenObject(object):
 
 
 class ZenObjectsList(list):
-    def by_account(self, account):
-        yield from self._by_attr('incomeAccount', account)
-        yield from self._by_attr('outcomeAccount', account)
+    def by_account(self, value):
+        # Is dedicated because looking by two attributes
+        for o in self:
+            if o.incomeAccount == value or o.outcomeAccount == value:
+                yield o
 
     def by_id(self, id):
         return self._by_attr_uniq('id', id)
