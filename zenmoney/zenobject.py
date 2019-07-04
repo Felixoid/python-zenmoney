@@ -5,14 +5,16 @@ def to_dict(obj, classkey=None):
     if isinstance(obj, dict):
         data = {}
         for (k, v) in obj.items():
-            data[k] = ZenObject._to_dict(v, classkey)
+            data[k] = to_dict(v, classkey)
 
         return data
     elif hasattr(obj, '__iter__') and not isinstance(obj, str):
-        return [ZenObject._to_dict(v, classkey) for v in obj]
+        return [to_dict(v, classkey) for v in obj]
     elif hasattr(obj, '__dict__'):
         data = dict([
-            (key, ZenObject._to_dict(getattr(obj, key), classkey))
+            (key, to_dict(getattr(obj, key), classkey))
+            # __dir__ is used here to get dynamic properties
+            # like Diff.currentClientTimestamp as well
             for key in obj.__dir__()
             if not key.startswith('_')
             and not callable(getattr(obj, key))
@@ -38,7 +40,7 @@ class ZenObject(object):
     def _type(self):
         return type(self).__name__
 
-    def _to_dict(self, classkey=None):
+    def to_dict(self, classkey=None):
         return to_dict(self, classkey)
 
 
@@ -87,5 +89,5 @@ class ZenObjectsList(list):
                 if value == attr_value:
                     yield o
 
-    def _to_dict(self, classkey=None):
+    def to_dict(self, classkey=None):
         return to_dict(self, classkey)

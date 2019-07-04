@@ -23,7 +23,7 @@ class Request(object):
         '''
         Accept the Diff object and returns Diff object
         '''
-        response = self.__post(self.uri_diff, json=Diff._to_dict(diff))
+        response = self.__post(self.uri_diff, json=Diff.to_dict(diff))
         if debug:
             self._plain_diff = response.json()
 
@@ -35,7 +35,7 @@ class Request(object):
         returns the same data with suggestions
         '''
         response = self.__post(self.uri_suggest,
-                               json={'transaction': transaction._to_dict()})
+                               json={'transaction': transaction.to_dict()})
         return response.json()
 
     def __post(self, uri: str, **kwargs):
