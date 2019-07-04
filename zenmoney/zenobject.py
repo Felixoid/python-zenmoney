@@ -49,20 +49,23 @@ class ZenObjectsList(list):
             if o.incomeAccount == value or o.outcomeAccount == value:
                 yield o
 
-    def by_id(self, id):
-        return self._by_attr_uniq('id', id)
+    def by_id(self, value):
+        return self._by_attr_uniq('id', value)
 
-    def by_symbol(self, symbol):
-        return self._by_attr_uniq('symbol', symbol)
+    def by_symbol(self, value):
+        return self._by_attr_uniq('symbol', value)
 
-    def by_tag(self, tag):
-        return self._by_attr('tag', tag)
+    def by_tag(self, value):
+        return self._by_attr('tag', value)
 
-    def by_title(self, title):
-        return self._by_attr_uniq('title', title)
+    def by_title(self, value):
+        return self._by_attr_uniq('title', value)
 
-    def by_shortTitle(self, shortTitle):
-        return self._by_attr_uniq('shortTitle', shortTitle)
+    def by_shortTitle(self, value):
+        return self._by_attr_uniq('shortTitle', value)
+
+    def by_user(self, value):
+        return self._by_attr('user', value)
 
     def _by_attr_uniq(self, attr, value):
         for o in self:
