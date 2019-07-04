@@ -54,6 +54,15 @@ class ZenObjectsList(list):
     def by_id(self, value):
         return self._by_attr_uniq('id', value)
 
+    def by_incomeAccount(self, value):
+        return self._by_attr('incomeAccount', value)
+
+    def by_outcomeAccount(self, value):
+        return self._by_attr('outcomeAccount', value)
+
+    def by_shortTitle(self, value):
+        return self._by_attr_uniq('shortTitle', value)
+
     def by_symbol(self, value):
         return self._by_attr_uniq('symbol', value)
 
@@ -62,9 +71,6 @@ class ZenObjectsList(list):
 
     def by_title(self, value):
         return self._by_attr_uniq('title', value)
-
-    def by_shortTitle(self, value):
-        return self._by_attr_uniq('shortTitle', value)
 
     def by_user(self, value):
         return self._by_attr('user', value)

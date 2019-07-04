@@ -33,6 +33,5 @@ from .user import User  # noqa:F401
 
 from .deletion import Deletion  # noqa:F401
 from .diff import Diff  # noqa:F401
-# from .suggest import Suggest
 from .oauth2 import OAuth2  # noqa:F401
 from .request import Request  # noqa:F401
