@@ -24,20 +24,22 @@ class Transaction(ZenObject):
                  outcomeInstrument:      int,  # -> Instrument.id
                  outcomeAccount:         UUID,  # -> Account.id
                  outcome:                float,  # >= 0
-                 # tag:                  [String  -> Tag.id]?
-                 # merchant:             UUID? -> Merchant.id
-                 # payee:                String?
+                 tag:                    list = None,  # [String  -> Tag.id]?
+                 merchant:               UUID = None,  # -> Merchant.id
+                 payee:                  str = None,
                  # originalPayee:        String?
                  # comment:              String?
                  date:                   datetime_date,  # 'yyyy-MM-dd'
                  # mcc:                  Int?
-                 # reminderMarker:       String? -> ReminderMarker.id
-                 # opIncome:             Double? >= 0
-                 # opIncomeInstrument:   Int? -> Instrument.id
-                 # opOutcome:            Double? >= 0
-                 # opOutcomeInstrument:  Int? -> Instrument.id
-                 # latitude:             Double? >= -90  && <= 90
-                 # longitude:            Double? >= -180 && <= 180
+                 reminderMarker:         str = None,  # -> ReminderMarker.id
+                 opIncome:               float = None,  # >= 0
+                 opIncomeInstrument:     int = None,  # -> Instrument.id
+                 opOutcome:              float = None,  # >= 0
+                 opOutcomeInstrument:    int = None,  # -> Instrument.id
+                 latitude:               float = None,  # >= -90  && <= 90
+                 longitude:              float = None,  # >= -180 && <= 180
+                 incomeBankID:           str = None,  # ???
+                 outcomeBankID:          str = None,  # ???
                  **kwargs
                  ):
         self.id = id
@@ -51,6 +53,18 @@ class Transaction(ZenObject):
         self.outcomeInstrument = outcomeInstrument
         self.outcomeAccount = outcomeAccount
         self.outcome = outcome
+        self.tag = tag
+        self.merchant = merchant
+        self.payee = payee
+        self.reminderMarker = reminderMarker
+        self.opIncome = opIncome
+        self.opIncomeInstrument = opIncomeInstrument
+        self.opOutcome = opOutcome
+        self.opOutcomeInstrument = opOutcomeInstrument
+        self.incomeBankID = incomeBankID
+        self.outcomeBankID = outcomeBankID
+        self.longitude = longitude
+        self.latitude = latitude
         self.date = str(date)
         for k, v in kwargs.items():
             setattr(self, k, v)
