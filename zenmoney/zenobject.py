@@ -51,6 +51,9 @@ class ZenObjectsList(list):
             if o.incomeAccount == value or o.outcomeAccount == value:
                 yield o
 
+    def by_date(self, value):
+        return self._by_attr('date', value)
+
     def by_id(self, value):
         return self._by_attr_uniq('id', value)
 
@@ -59,6 +62,9 @@ class ZenObjectsList(list):
 
     def by_outcomeAccount(self, value):
         return self._by_attr('outcomeAccount', value)
+
+    def by_payee(self, value):
+        return self._by_attr('payee', value)
 
     def by_shortTitle(self, value):
         return self._by_attr_uniq('shortTitle', value)
