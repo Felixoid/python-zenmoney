@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from datetime import date, datetime  # noqa:F401
-from uuid import UUID  # noqa:F401
+from datetime import datetime  # noqa:F401
 
 
 VERSION = (0, 9)
