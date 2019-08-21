@@ -51,6 +51,8 @@ class Diff(ZenObject):
                  **kwargs,
                  ):
         for class_name in API_OBJECTS + ['Deletion']:
+            # Objects in the API are in camelCase,
+            # but in python are in PascalCase
             attr_name = class_name[0].lower() + class_name[1:]
             attr_value = locals()[attr_name]
             if attr_value:

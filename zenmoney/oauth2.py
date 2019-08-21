@@ -32,7 +32,7 @@ class OAuth2(object):
             self.__set_token()
             return self._token
 
-    def __set_token(self):
+    def __set_token(self, _: None = None) -> None:
         'request cookie'
         'request code'
         'request token'

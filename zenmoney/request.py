@@ -29,7 +29,7 @@ class Request(object):
 
         return Diff(**response.json())
 
-    def suggest(self, transaction: object) -> Transaction:
+    def suggest(self, transaction: Transaction) -> Transaction:
         '''
         Accept one or ZenObjectsList of Transactions
         returns the same data with suggestions
