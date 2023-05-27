@@ -45,8 +45,8 @@ class Request(object):
         response = self.s.post(uri, **kwargs)
         if not response.ok:
             raise ZenMoneyException(
-                'POST request to {} wasn\'t successful, code={}'
-                .format(uri, response.status_code),
+                'POST request to {} wasn\'t successful, code={}, text={}'
+                .format(uri, response.status_code, response.text),
                 uri=uri, response=response
             )
         return response
